@@ -1,0 +1,6 @@
+# Build the container
+
+- Use your favorite command line editor (vim, nano, emacs,...)
+- Ensure it is installed in the container
+- Verify that cmake is installed in the container
+
