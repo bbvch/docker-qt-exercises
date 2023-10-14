@@ -1,6 +1,3 @@
 # Mounting
 
-- Mount or Copy code into container
-- Compile it with CMake
-- Run it.. (Why is there no display)
-- Add the compilation to the Dockerfile
+- Create a runfile that mounts the display

@@ -21,4 +21,15 @@ qml-module-qtquick-controls \
 qtquickcontrols2-5-dev \
 qml-module-qtgraphicaleffects \
 qml-module-qttest 
+# Set the working directory
+WORKDIR /app
+
+# Copy the source code and CMakeLists.txt into the Docker container
+COPY . /app
+
+WORKDIR /app
+
+# Navigate into the build directory, run CMake, and compile the application
+RUN cmake -B ./build -S ./src && cmake --build build
+
 
