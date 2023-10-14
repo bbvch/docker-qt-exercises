@@ -1,12 +1,17 @@
-# Add a user and run the app with the user 
-
-uid and gid between host user and containr user must match
+# Create a second stage that will be will be deployed
 
 Tasks
-- Use argument to add user/groupid from the host user during build
-- Create a directory where the user will work and give him rights to it
-- Switch to the user in the container
-- Copy the code to the created directory
-- Switch the workspace directory to the create container
-- Compile
-- Run via entry point
+
+- Copy over necessary paths
+  - /usr/lib
+  - /usr/share
+  - /etc/fonts
+  - /var/cache/fontconfig
+  - /etc/passwd
+  - /etc/group
+  - /etc/shadow
+
+Why are these files necessary?
+
+- Copy the compiled application only
+- Set the user and start the app as entrypoint

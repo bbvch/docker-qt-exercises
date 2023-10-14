@@ -1,6 +1,10 @@
 # Start with a base Debian image
 FROM ubuntu:22.04 AS base
 
+# Add arguments that can be used when creating the docker container
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
 # Install necessary tools and libraries including Qt5 and CMake
 RUN apt-get update; \
     apt-get upgrade -y;  \
@@ -21,11 +25,26 @@ qml-module-qtquick-controls \
 qtquickcontrols2-5-dev \
 qml-module-qtgraphicaleffects \
 qml-module-qttest 
-# Set the working directory
-WORKDIR /app
 
-# Copy the source code and CMakeLists.txt into the Docker container
-COPY . /app
+# Adding the user an creating a directory for him
+RUN addgroup --gid $GROUP_ID dockergroup \
+    && adduser \
+       --home /home/dockeruser \
+       --uid $USER_ID \
+       --ingroup dockergroup \
+       dockeruser
+
+RUN mkdir /app && chown dockeruser:dockergroup /app
+
+#Switch container user 
+USER dockeruser
+
+# Copy the source code and CMakeLists.txt into the Docker 
+# container with user rights adapted
+COPY --chown=dockeruser:dockergroup . /app
+
+#Switch working directory
+WORKDIR /app
 
 # Navigate into the build directory, run CMake, and compile the application
 RUN cmake -B ./build -S ./src && cmake --build build
