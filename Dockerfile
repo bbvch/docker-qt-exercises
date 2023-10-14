@@ -49,5 +49,30 @@ WORKDIR /app
 # Navigate into the build directory, run CMake, and compile the application
 RUN cmake -B ./build -S ./src && cmake --build build
 
-ENTRYPOINT ["/app/build/MyQtApp"]
 
+# Start the second stage
+#############################################################################
+FROM ubuntu:22.04 AS runtime
+
+# Copy necessary libraries and binaries from the build stage
+COPY --from=base /usr/lib /usr/lib
+COPY --from=base /usr/share /usr/share
+
+# In the runtime stage:
+COPY --from=base /etc/fonts/ /etc/fonts/
+COPY --from=base /var/cache/fontconfig/ /var/cache/fontconfig/
+
+# Copy over the user and group information
+COPY --from=base /etc/passwd /etc/passwd
+COPY --from=base /etc/group /etc/group
+COPY --from=base /etc/shadow /etc/shadow
+
+# Copy the compiled application from the build stage
+COPY --from=base --chown=dockeruser:dockergroup /app/build/MyQtApp /app/MyQtApp
+
+# Set the user and working directory
+USER dockeruser
+WORKDIR /app
+
+# Set the entrypoint for the application
+ENTRYPOINT ["/app/MyQtApp"]

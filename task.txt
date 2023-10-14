@@ -1,17 +1,7 @@
-# Create a second stage that will be will be deployed
+# Restrict container resources
 
-Tasks
-
-- Copy over necessary paths
-  - /usr/lib
-  - /usr/share
-  - /etc/fonts
-  - /var/cache/fontconfig
-  - /etc/passwd
-  - /etc/group
-  - /etc/shadow
-
-Why are these files necessary?
-
-- Copy the compiled application only
-- Set the user and start the app as entrypoint
+- Setup number of cpu to 1
+- Restrict memory to 100mb
+- Only allow 50% cpu cycles on the cpu
+- make fs readonly
+- add temporary fs where necessary
