@@ -1,6 +1,6 @@
-# Build the container
+# Mounting
 
-- Use your favorite command line editor (vim, nano, emacs,...)
-- Ensure it is installed in the container
-- Verify that cmake is installed in the container
-
+- Mount or Copy code into container
+- Compile it with CMake
+- Run it.. (Why is there no display)
+- Add the compilation to the Dockerfile
