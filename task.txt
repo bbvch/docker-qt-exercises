@@ -1,3 +1,4 @@
-# Mounting
+# Create an entry point 
 
-- Create a runfile that mounts the display
+- Add a Entrypoint to your dockerfile to directly run the container
+- Adapt your runcontainer.sh to run the container without interactive mode
