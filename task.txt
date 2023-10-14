@@ -1,4 +1,12 @@
-# Create an entry point 
+# Add a user and run the app with the user 
 
-- Add a Entrypoint to your dockerfile to directly run the container
-- Adapt your runcontainer.sh to run the container without interactive mode
+uid and gid between host user and containr user must match
+
+Tasks
+- Use argument to add user/groupid from the host user during build
+- Create a directory where the user will work and give him rights to it
+- Switch to the user in the container
+- Copy the code to the created directory
+- Switch the workspace directory to the create container
+- Compile
+- Run via entry point

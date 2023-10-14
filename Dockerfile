@@ -27,9 +27,8 @@ WORKDIR /app
 # Copy the source code and CMakeLists.txt into the Docker container
 COPY . /app
 
-WORKDIR /app
-
 # Navigate into the build directory, run CMake, and compile the application
 RUN cmake -B ./build -S ./src && cmake --build build
 
+ENTRYPOINT ["/app/build/MyQtApp"]
 
